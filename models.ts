@@ -1,3 +1,5 @@
+import { tShow } from "./types";
+
 const MISSING_IMAGE_URL = "https://tinyurl.com/missing-tv";
 const TVMAZE_API_URL = "https://api.tvmaze.com/";
 
@@ -8,21 +10,20 @@ const TVMAZE_API_URL = "https://api.tvmaze.com/";
  *    (if no image URL given by API, put in a default image URL)
  */
 
-async function searchShowsByTerm(term)  {
+async function searchShowsByTerm(term: string): Promise<tShow> {
   const response = await fetch(`${TVMAZE_API_URL}search/shows?q=${term}`);
   const data = await response.json();
 
-  return data.map(result => {
+  return data.map((result) => {
     const show = result.show;
     return {
       id: show.id,
       name: show.name,
       summary: show.summary,
-      image: show.image?.medium || MISSING_IMAGE_URL
+      image: show.image?.medium || MISSING_IMAGE_URL,
     };
   });
 }
-
 
 /** Given a show ID, get from API and return (promise) array of episodes:
  *      { id, name, season, number }
@@ -32,9 +33,12 @@ async function getEpisodesOfShow(id) {
   const response = await fetch(`${TVMAZE_API_URL}shows/${id}/episodes`);
   if (!response.ok) throw new Error("404");
   const data = await response.json();
-  return data.map(({ id, name, season, number}) => (
-    {id, name, season, number}
-  ));
+  return data.map(({ id, name, season, number }) => ({
+    id,
+    name,
+    season,
+    number,
+  }));
 }
 
 export {

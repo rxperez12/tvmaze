@@ -1,4 +1,4 @@
-import { getEpisodesOfShow, searchShowsByTerm } from "./models"
+import { getEpisodesOfShow, searchShowsByTerm } from "./models";
 
 const $showsList = document.querySelector("#showsList");
 const $episodesList = document.querySelector("#episodesList");
@@ -49,7 +49,6 @@ $searchForm.addEventListener("submit", async function (evt) {
   await searchForShowAndDisplay();
 });
 
-
 /** Given list of episodes, create markup for each and to DOM */
 
 function populateEpisodes(episodes) {
@@ -57,7 +56,7 @@ function populateEpisodes(episodes) {
 
   for (const episode of episodes) {
     const $item = document.createElement("li");
-    $item.innerHTML = `    
+    $item.innerHTML = `
          ${episode.name}
          (season ${episode.season}, episode ${episode.number})
     `;
@@ -77,7 +76,7 @@ async function getEpisodesAndDisplay(evt) {
   // here's one way to get the ID of the show: search "closest" ancestor
   // with the class of .Show (which is put onto the enclosing div, which
   // has the .data-show-id attribute).
-  const $closest = (evt.target).closest(".Show");
+  const $closest = evt.target.closest(".Show");
   const showId = Number($closest.getAttribute("data-show-id"));
   const episodes = await getEpisodesOfShow(showId);
   populateEpisodes(episodes);

@@ -13,19 +13,26 @@ import {
   getEpisodesOfShow,
   MISSING_IMAGE_URL,
   TVMAZE_API_URL,
-} from "./models";
-import { mockServer, mock } from "./apiMock.js";
+} from "./models.ts";
+import { mockServer, mock } from "./apiMock.ts";
 
-beforeAll(function () { mockServer.listen(); });
-afterEach(function () { mockServer.resetHandlers(); });
-afterAll(function () { mockServer.close(); });
+beforeAll(function () {
+  mockServer.listen();
+});
+afterEach(function () {
+  mockServer.resetHandlers();
+});
+afterAll(function () {
+  mockServer.close();
+});
 
 describe("searchShowsByTerm", function () {
   const data = [
     {
       show: { id: 1, name: "A", summary: "B", image: { medium: "img" } },
       score: 1,
-    }, {
+    },
+    {
       show: { id: 2, name: "C", summary: "D" },
       score: 1,
     },
@@ -36,13 +43,13 @@ describe("searchShowsByTerm", function () {
   ];
 
   test("ok", async function () {
-    mock("get", `${ TVMAZE_API_URL }search/shows?q=dog`, data);
+    mock("get", `${TVMAZE_API_URL}search/shows?q=dog`, data);
     const resp = await searchShowsByTerm("dog");
     expect(resp).toEqual(expected);
   });
 
   test("nothing found", async function () {
-    mock("get", `${ TVMAZE_API_URL }search/shows?q=dog`, []);
+    mock("get", `${TVMAZE_API_URL}search/shows?q=dog`, []);
     const resp = await searchShowsByTerm("dog");
     expect(resp).toEqual([]);
   });
@@ -54,7 +61,7 @@ describe("getEpisodesOfShow", function () {
       { id: 1, name: "Pilot", season: 1, number: 1 },
       { id: 2, name: "Second", season: 1, number: 2 },
     ];
-    mock("get", `${ TVMAZE_API_URL }shows/1/episodes`, data);
+    mock("get", `${TVMAZE_API_URL}shows/1/episodes`, data);
     const resp = await getEpisodesOfShow(1);
     expect(resp).toEqual([
       { id: 1, name: "Pilot", season: 1, number: 1 },

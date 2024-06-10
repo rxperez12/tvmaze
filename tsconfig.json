@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "target": "es2021",  // transpile to modern JavaScript
+    "strict": true,      // strict checking for type errors
+  }
+}
