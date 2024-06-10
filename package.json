@@ -10,8 +10,8 @@
     "test:cov": "vitest --coverage"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "*",
-    "vitest": "*",
-    "msw": "*"
+    "@vitest/coverage-v8": "^1.6.0",
+    "msw": "*",
+    "vitest": "^1.6.0"
   }
 }

@@ -14,4 +14,4 @@ type tShow = {
 
 type tEpisode = { id: number; name: string; season: number; number: number };
 
-export { tShow, tEpisode };
+export { tShow, tEpisode, tShowData };
