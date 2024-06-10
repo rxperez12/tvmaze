@@ -1,14 +1,17 @@
 import { getEpisodesOfShow, searchShowsByTerm } from "./models";
+import { tShow } from "./types";
 
-const $showsList = document.querySelector("#showsList");
-const $episodesList = document.querySelector("#episodesList");
-const $episodesArea = document.querySelector("#episodesArea");
-const $searchForm = document.querySelector("#searchForm");
-const $term = document.querySelector("#searchForm-term");
+const $showsList = document.querySelector("#showsList") as HTMLElement;
+const $episodesList = document.querySelector("#episodesList") as HTMLElement;
+const $episodesArea = document.querySelector(
+  "#episodesArea"
+) as HTMLAreaElement;
+const $searchForm = document.querySelector("#searchForm") as HTMLFormElement;
+const $term = document.querySelector("#searchForm-term") as HTMLInputElement;
 
 /** Given list of shows, create markup for each and to DOM */
 
-function populateShows(shows) {
+function populateShows(shows: tShow[]): void {
   $showsList.innerHTML = "";
 
   for (const show of shows) {
@@ -36,7 +39,7 @@ function populateShows(shows) {
  *    Hide episodes area (that only gets shown if they ask for episodes)
  */
 
-async function searchForShowAndDisplay() {
+async function searchForShowAndDisplay(): Promise<void> {
   const searchTerm = $term.value;
   const shows = await searchShowsByTerm(searchTerm);
 
