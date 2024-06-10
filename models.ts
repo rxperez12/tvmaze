@@ -1,4 +1,4 @@
-import { tShow } from "./types";
+import { tShow, tEpisode } from "./types";
 
 const MISSING_IMAGE_URL = "https://tinyurl.com/missing-tv";
 const TVMAZE_API_URL = "https://api.tvmaze.com/";
@@ -29,11 +29,11 @@ async function searchShowsByTerm(term: string): Promise<tShow> {
  *      { id, name, season, number }
  */
 
-async function getEpisodesOfShow(id) {
+async function getEpisodesOfShow(id: number) {
   const response = await fetch(`${TVMAZE_API_URL}shows/${id}/episodes`);
   if (!response.ok) throw new Error("404");
   const data = await response.json();
-  return data.map(({ id, name, season, number }) => ({
+  return data.map(({ id, name, season, number }: tEpisode) => ({
     id,
     name,
     season,
